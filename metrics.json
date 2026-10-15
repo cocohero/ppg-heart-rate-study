@@ -1,0 +1,135 @@
+{
+  "audit_date": "2026-10-11",
+  "verification": "Full raw-data rerun of 12 recordings",
+  "dataset": "IEEE Signal Processing Cup 2015 public training set",
+  "sampling_rate_hz": 125,
+  "window_seconds": 8,
+  "step_seconds": 2,
+  "truth": "Supplied BPM0 arrays; exact equality checked against archived experiment truth",
+  "estimator_inputs": "Two wrist PPG channels and three-axis accelerometer; no ECG/truth passed to estimator",
+  "missing_policy": "Initialization NaNs excluded from MAE; counts and availability disclosed separately",
+  "summary": {
+    "greedy_baseline": {
+      "subjects": 12,
+      "total_windows": 1768,
+      "valid_windows": 1767,
+      "missing_windows": 1,
+      "output_availability": 0.9994343891402715,
+      "macro_mae_bpm": 3.1941362665861734,
+      "pooled_mae_bpm": 3.1946811039492182,
+      "macro_within_5bpm": 0.8639863029249751,
+      "pooled_within_5bpm": 0.8641765704584041,
+      "within_5bpm_all_windows_missing_counted_as_failure": 0.8636877828054299
+    },
+    "single_channel_arbiter": {
+      "subjects": 12,
+      "total_windows": 1768,
+      "valid_windows": 1767,
+      "missing_windows": 1,
+      "output_availability": 0.9994343891402715,
+      "macro_mae_bpm": 2.493571776957641,
+      "pooled_mae_bpm": 2.4913363727105713,
+      "macro_within_5bpm": 0.9000754888083656,
+      "pooled_within_5bpm": 0.9003961516694963,
+      "within_5bpm_all_windows_missing_counted_as_failure": 0.8998868778280543
+    },
+    "dual_channel_improved": {
+      "subjects": 12,
+      "total_windows": 1768,
+      "valid_windows": 1767,
+      "missing_windows": 1,
+      "output_availability": 0.9994343891402715,
+      "macro_mae_bpm": 2.174395597416495,
+      "pooled_mae_bpm": 2.170116686972555,
+      "macro_within_5bpm": 0.9034580441386949,
+      "pooled_within_5bpm": 0.9037917374080362,
+      "within_5bpm_all_windows_missing_counted_as_failure": 0.9032805429864253
+    }
+  },
+  "paper_reference": {
+    "url": "https://arxiv.org/abs/1409.5181",
+    "reported_macro_mae_bpm": 2.34,
+    "table_i_subject_mae_bpm": [
+      2.29,
+      2.19,
+      2.0,
+      2.15,
+      2.01,
+      2.76,
+      1.67,
+      1.93,
+      1.86,
+      4.7,
+      1.72,
+      2.84
+    ],
+    "paper_input": "Single-channel PPG + three-axis acceleration",
+    "comparison": "Reference only; different input count, implementation, initialization and selection protocol"
+  },
+  "threshold_only_loso": {
+    "macro_mae_bpm": 2.327158713204226,
+    "folds": [
+      {
+        "held_out_subject": "DATA_01_TYPE01",
+        "held_out_mae_bpm": 2.3639586700680497
+      },
+      {
+        "held_out_subject": "DATA_02_TYPE02",
+        "held_out_mae_bpm": 5.1618901164216
+      },
+      {
+        "held_out_subject": "DATA_03_TYPE02",
+        "held_out_mae_bpm": 1.5261376674107148
+      },
+      {
+        "held_out_subject": "DATA_04_TYPE02",
+        "held_out_mae_bpm": 1.7000289169520553
+      },
+      {
+        "held_out_subject": "DATA_05_TYPE02",
+        "held_out_mae_bpm": 1.5417693065068487
+      },
+      {
+        "held_out_subject": "DATA_06_TYPE02",
+        "held_out_mae_bpm": 1.6830678645833335
+      },
+      {
+        "held_out_subject": "DATA_07_TYPE02",
+        "held_out_mae_bpm": 1.0343990475982363
+      },
+      {
+        "held_out_subject": "DATA_08_TYPE02",
+        "held_out_mae_bpm": 1.1709113769531243
+      },
+      {
+        "held_out_subject": "DATA_09_TYPE02",
+        "held_out_mae_bpm": 1.055641925335571
+      },
+      {
+        "held_out_subject": "DATA_10_TYPE02",
+        "held_out_mae_bpm": 4.48491194045608
+      },
+      {
+        "held_out_subject": "DATA_11_TYPE02",
+        "held_out_mae_bpm": 3.1106802775349642
+      },
+      {
+        "held_out_subject": "DATA_12_TYPE02",
+        "held_out_mae_bpm": 3.092507448630136
+      }
+    ],
+    "selection": "One final scalar selected by minimum 11-subject macro MAE from a predeclared 8-value grid; parameters withheld",
+    "limitation": "Not full-pipeline held-out validation; prior design and hyperparameters used all subjects"
+  },
+  "limitations": [
+    "Development and selection used the same 12 training recordings; no independent dataset validation",
+    "Improved result uses a second PPG channel unlike the single-channel paper experiment",
+    "Implementation differs from author code; original author implementation was not rerun",
+    "One or more initialization windows may have no output; see exact counts",
+    "Forward-backward filtering of whole-record arbiter signals uses future samples; not a strict causal streaming implementation",
+    "Runtime is workstation evidence only, not an embedded-power or latency benchmark",
+    "Oracle results are not deployable estimates and are excluded from public performance tables",
+    "Aggregate recomputation validates arithmetic, not an independent reproduction of the private estimator",
+    "Rights, dataset redistribution permission and employer-IP clearance require owner review before publication"
+  ]
+}
